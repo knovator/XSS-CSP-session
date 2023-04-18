@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XSS Attack</title>
+</head>
+
+<body>
+    <div>
+        <textarea placeholder="Add new comment..." id="comment" name="comment"></textarea>
+        <button type="button" onclick="addComment()">Add</button>
+    </div>
+    <span id="output"></span>
+    <hr />
+    <form action="./" method="GET">
+        <input type="text" placeholder="Search your comments..." name="search" />
+        <input type="submit" value="Search" />
+    </form>
+    <div id="search"></div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
