@@ -6,3 +6,6 @@
 - Clone the repo
 - Run `yarn install`
 - Run `yarn start`
+
+# References
+- Inspiration for XSS example is taken from [devkode](https://github.com/devkodeio)

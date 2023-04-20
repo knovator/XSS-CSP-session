@@ -6,7 +6,6 @@ const CSVToJSON = require("csvtojson");
 
 const logDir = path.resolve(__dirname, "./logs");
 const commentCSV = path.resolve(logDir, "comment.csv");
-const reportViolationsCSV = path.resolve(logDir, "report-violations.csv");
 const config = JSON.parse(fs.readFileSync("package.json")).config;
 
 const server = express();
@@ -15,37 +14,11 @@ if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir, { recursive: true });
 }
 
-if (!fs.existsSync(reportViolationsCSV)) {
-  fs.writeFileSync(reportViolationsCSV, "time,url,data\n", {
-    flag: "wx",
-  });
-}
-
 if (!fs.existsSync(commentCSV)) {
   fs.writeFileSync(commentCSV, "time,comment\n", {
     flag: "wx",
   });
 }
-
-server.post(
-  "/api/report-violations",
-  bodyParser.json({ type: "*/*" }),
-  (req, res, next) => {
-    const now = new Date().getTime();
-    const URL = req.protocol + "://" + req.get("host") + req.originalUrl;
-    const record = `${now},${URL},${JSON.stringify(req.body)}`;
-
-    fs.appendFile(reportViolationsCSV, `${record}\n`, (err) => {
-      if (err) {
-        console.error(err);
-        res.sendStatus(500);
-      } else {
-        res.sendStatus(200);
-      }
-      next();
-    });
-  }
-);
 
 server.post(
   "/api/comment",
